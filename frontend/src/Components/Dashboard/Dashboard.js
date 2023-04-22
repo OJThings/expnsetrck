@@ -45,13 +45,13 @@ function Dashboard() {
                 </p>
               </div>
 
-              <div className="income">
+              <div className="balance">
                 <h2>Total Balance</h2>
                 <p>
                   {peso} {totalBalance()}
                 </p>
               </div>
-              <div className="expense">
+              <div className="savings">
                 <h2>Total Savings</h2>
                 <p>
                   {peso} {totalSavings()}
@@ -104,7 +104,9 @@ const DashboardStyled = styled.div`
         gap: 2rem;
         margin-top: 2rem;
         .income,
-        .expense {
+        .expense,
+        .savings,
+        .balance {
           grid-column: span 2;
         }
         .income,
@@ -122,12 +124,8 @@ const DashboardStyled = styled.div`
           }
         }
 
+        .savings,
         .balance {
-          grid-column: 2 / 4;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
           p {
             color: var(--color-green);
             opacity: 0.6;
