@@ -1,55 +1,51 @@
 import React, { useEffect } from "react";
 import { useGlobalContext } from "../../context/globalContext";
 import { InnerLayout } from "../../styles/Layouts";
-import Deleter from "../Deleter/Deleter";
-import Form from "../Form/Form";
-import IncomeItem from "../IncomeItem/IncomeItem";
-import { IncomeStyled } from "./IncomeStyled";
+import MonthlyForm from "./MonthlyForm";
+import { MonthlyStyled } from "./MonthlyStyled";
+import MonthlyItem from "./MonthlyItem";
 
-function Income() {
-  const { incomes, getIncomes, deleteIncome, deleteAllIncome, totalIncome } =
+function Monthly() {
+  const { monthly, getMonthly, deleteMonthly, totalMonthly } =
     useGlobalContext();
 
   useEffect(() => {
-    getIncomes();
+    getMonthly();
   }, []);
   return (
-    <IncomeStyled>
+    <MonthlyStyled>
       <InnerLayout>
-        <h1>Incomes</h1>
+        <h1>Monthly</h1>
         <h2 className="total-income">
-          Total Income: <span>₱{totalIncome()}</span>
+          Total Monthly: <span>₱{totalMonthly()}</span>
         </h2>
-        <Deleter deleteItem={deleteAllIncome} />
-
         <div className="income-content">
           <div className="form-container">
-            <Form />
+            <MonthlyForm />
           </div>
           <div className="incomes">
-            {incomes.map((income) => {
-              const { _id, title, amount, date, category, description, type } =
-                income;
+            {monthly.map((monthly) => {
+              const { _id, title, amount, date, category, type } = monthly;
+              console.log(monthly);
               return (
-                <IncomeItem
+                <MonthlyItem
                   key={_id}
                   id={_id}
                   title={title}
-                  description={description}
                   amount={amount}
                   date={date}
                   type={type}
                   category={category}
                   indicatorColor="var(--color-green)"
-                  deleteItem={deleteIncome}
+                  deleteItem={deleteMonthly}
                 />
               );
             })}
           </div>
         </div>
       </InnerLayout>
-    </IncomeStyled>
+    </MonthlyStyled>
   );
 }
 
-export default Income;
+export default Monthly;

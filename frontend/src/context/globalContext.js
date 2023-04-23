@@ -9,6 +9,7 @@ export const GlobalProvider = ({ children }) => {
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [savings, setSavings] = useState([]);
+  const [monthly, setMonthly] = useState([]);
   const [error, setError] = useState(null);
 
   //calculate incomes
@@ -32,6 +33,10 @@ export const GlobalProvider = ({ children }) => {
     getIncomes();
   };
 
+  const deleteAllIncome = async (id) => {
+    const res = await axios.delete(`${BASE_URL}delete-all-income`);
+    getIncomes();
+  };
   const totalIncome = () => {
     let totalIncome = 0;
     incomes.forEach((income) => {
@@ -59,6 +64,11 @@ export const GlobalProvider = ({ children }) => {
 
   const deleteExpense = async (id) => {
     const res = await axios.delete(`${BASE_URL}delete-expense/${id}`);
+    getExpenses();
+  };
+  
+  const deleteAllExpense = async (id) => {
+    const res = await axios.delete(`${BASE_URL}delete-all-expense`);
     getExpenses();
   };
 
@@ -101,6 +111,36 @@ export const GlobalProvider = ({ children }) => {
     return totalSavings;
   };
 
+  //Monthly Expense Storage
+  const addMonthly = async (monthly) => {
+    const response = await axios
+      .post(`${BASE_URL}add-monthly`, monthly)
+      .catch((err) => {
+        setError(err.response.data.message);
+      });
+    getMonthly();
+  };
+
+  const getMonthly = async () => {
+    const response = await axios.get(`${BASE_URL}get-monthly`);
+    setMonthly(response.data);
+    console.log(response.data);
+  };
+
+  const deleteMonthly = async (id) => {
+    const res = await axios.delete(`${BASE_URL}delete-monthly/${id}`);
+    getMonthly();
+  };
+
+  const totalMonthly = () => {
+    let totalMonthly = 0;
+    monthly.forEach((month) => {
+      totalMonthly = totalMonthly + month.amount;
+    });
+
+    return totalMonthly;
+  };
+
   const totalBalance = () => {
     return totalIncome() - totalExpenses();
   };
@@ -118,22 +158,29 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         addIncome,
-        getIncomes,
-        incomes,
-        deleteIncome,
-        expenses,
-        savings,
-        totalIncome,
         addExpense,
-        getExpenses,
-        deleteExpense,
         addSavings,
+        addMonthly,
+        getIncomes,
+        getExpenses,
         getSavings,
+        getMonthly,
+        deleteIncome,
+        deleteExpense,
+        deleteAllExpense,
+        deleteAllIncome,
         deleteSavings,
+        deleteMonthly,
+        totalIncome,
         totalSavings,
         totalExpenses,
         totalBalance,
+        totalMonthly,
         transactionHistory,
+        incomes,
+        expenses,
+        savings,
+        monthly,
         error,
         setError,
       }}

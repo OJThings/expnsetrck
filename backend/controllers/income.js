@@ -48,3 +48,21 @@ exports.deleteIncome = async (req, res) =>{
             res.status(500).json({message: 'Server Error'})
         })
 }
+exports.deleteAllIncome = async (req, res) => {
+    IncomeSchema.find()
+    .then(allIncomes => {
+      IncomeSchema.deleteMany()
+        .then(() => {
+          res.status(200).json({ message: `Deleted ${allIncomes.length} incomes` });
+        })
+        .catch(deleteError => {
+          console.log(deleteError.message);
+          res.status(500).json({ message: deleteError.message });
+        });
+    })
+    .catch(findError => {
+      console.log(findError.message);
+      res.status(500).json({ message: findError.message });
+    });
+  
+  };

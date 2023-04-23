@@ -7,11 +7,9 @@ import {
   card,
   circle,
   clothing,
-  comment,
   peso,
   food,
   freelance,
-  medical,
   money,
   piggy,
   stocks,
@@ -23,17 +21,13 @@ import {
   transportation,
 } from "../../utils/Icons";
 import Button from "../Button/Button";
-import { IncomeItemStyled } from "./IncomeStyled";
-
-
-
-function IncomeItem({
+import { IncomeItemStyled } from "../IncomeItem/IncomeStyled";
+function MonthlyItem({
   id,
   title,
   amount,
   date,
   category,
-  description,
   deleteItem,
   indicatorColor,
   type,
@@ -101,10 +95,7 @@ function IncomeItem({
             <p>
               {calender} {dateFormat(date)}
             </p>
-            <p>
-              {comment}
-              {description}
-            </p>
+            <p></p>
           </div>
           <div className="btn-con">
             <Button
@@ -124,4 +115,4 @@ function IncomeItem({
   );
 }
 
-export default IncomeItem;
+export default MonthlyItem;

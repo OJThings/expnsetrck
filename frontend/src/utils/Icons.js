@@ -30,3 +30,4 @@ export const peso = <i className="fa-solid fa-peso-sign"></i>
 export const savings = <i className="fa-solid fa-piggy-bank"></i>
 export const transportation = <i className="fa-solid fa-taxi-bus"></i>
 export const food = <i className="fa-sharp fa-solid fa-burger-soda"></i>
+export const monthly = <i class="fa-solid fa-calendar-days"></i>
